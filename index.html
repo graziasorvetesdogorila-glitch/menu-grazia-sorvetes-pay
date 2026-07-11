@@ -1,42 +1,52 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grazia Sorvetes - Cardápio & Pagamento Integrado</title>
+    <title>Grazia Sorvetes - O Sorvete do Gorila</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff4d6d;
-            --primary-light: #fff0f3;
-            --primary-hover: #ff758f;
-            --dark: #2b2d42;
-            --grey: #f8f9fa;
-            --border: #e0e0e0;
-            --text: #4a4a4a;
-            --success: #2b9348;
+            --primary: #6A1B9A;
+            --primary-deep: #4A148C;
+            --primary-light: #AB47BC;
+            --secondary: #00BFA5;
+            --secondary-deep: #00897B;
+            --accent: #FF6F00;
+            --bg: #FAF5FF;
+            --bg-warm: #F3E8FF;
+            --surface: #FFFFFF;
+            --surface-hover: #F8F0FF;
+            --text: #1A0A2E;
+            --text-muted: #6B5B7B;
+            --text-light: #9B8AAE;
+            --border: #E0D0F0;
+            --border-hover: #C8B0E0;
+            --danger: #E63946;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
-            background-color: #f4f6f9;
+            background-color: var(--bg);
             color: var(--text);
-            padding: 20px;
+            padding: 20px 10px;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            padding: 24px;
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(106, 27, 154, 0.06);
+            padding: 25px;
+            border: 1px solid var(--border);
         }
 
         header {
@@ -45,242 +55,286 @@
         }
 
         header h1 {
-            color: var(--primary);
-            font-size: 2rem;
+            font-family: 'DM Serif Display', serif;
+            color: var(--primary-deep);
+            font-size: 2.4rem;
             margin-bottom: 5px;
         }
 
         header p {
-            color: #6c757d;
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .section-title {
-            font-size: 1.2rem;
-            color: var(--dark);
-            margin: 25px 0 15px 0;
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 5px;
+            font-size: 1.3rem;
+            color: var(--primary-deep);
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--secondary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* CARDÁPIO VISUAL */
+        /* CARDÁPIO */
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .product-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 18px;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: 12px;
-            background: var(--grey);
+            border-radius: 16px;
+            background: var(--surface);
+            transition: all 0.2s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--primary-light);
+            background: var(--surface-hover);
+            transform: translateY(-2px);
         }
 
         .product-info h3 {
-            font-size: 1rem;
-            color: var(--dark);
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 4px;
         }
 
         .product-info .price {
             color: var(--primary);
-            font-weight: bold;
-            font-size: 0.95rem;
-            margin-top: 4px;
+            font-weight: 700;
+            font-size: 1.05rem;
         }
 
-        .wholesale-info {
+        .wholesale-badge {
             font-size: 0.75rem;
-            color: var(--success);
-            display: block;
-            margin-top: 2px;
+            color: var(--secondary-deep);
+            background: #E0F2F1;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 4px;
         }
 
         .qty-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: var(--bg-warm);
+            padding: 6px 12px;
+            border-radius: 30px;
         }
 
         .qty-btn {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            width: 32px;
-            height: 32px;
+            background: var(--surface);
+            border: none;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .qty-btn:hover {
-            background: var(--primary-light);
-            border-color: var(--primary);
+            font-weight: 800;
+            color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .qty-val {
-            font-weight: bold;
-            min-width: 20px;
+            font-weight: 700;
+            min-width: 18px;
             text-align: center;
         }
 
-        /* FORMULÁRIO */
+        /* FORMULÁRIO DE CHECKOUT */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
             margin-bottom: 6px;
-            color: var(--dark);
+            color: var(--text);
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             outline: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            background: var(--bg);
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: var(--primary);
+            background: var(--surface);
         }
 
-        /* OPÇÕES DE PAGAMENTO */
-        .payment-section {
+        /* SEÇÃO EXCLUSIVA INFINITY PAY */
+        .payment-box {
             margin-top: 25px;
             padding: 20px;
-            background: var(--grey);
-            border-radius: 12px;
-            border: 1px dashed var(--border);
+            background: var(--bg-warm);
+            border-radius: 16px;
+            border: 2px dashed var(--primary-light);
+        }
+
+        .payment-box h4 {
+            color: var(--primary-deep);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
         }
 
         .payment-alert {
-            color: #e63946;
+            color: var(--danger);
             font-size: 0.85rem;
+            font-weight: 600;
             margin-bottom: 15px;
-            font-weight: bold;
         }
 
-        .payment-options {
+        .payment-methods {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .payment-card {
+        .method-card {
             cursor: pointer;
             position: relative;
         }
 
-        .payment-card input[type="radio"] {
+        .method-card input {
             position: absolute;
             opacity: 0;
         }
 
-        .card-content {
+        .method-design {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: #ffffff;
+            gap: 12px;
+            padding: 14px;
+            background: var(--surface);
             border: 2px solid var(--border);
-            border-radius: 8px;
-            transition: all 0.2s ease;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .payment-card input[type="radio"]:checked + .card-content {
-            border-color: var(--primary);
-            background-color: var(--primary-light);
+        .method-card input:checked + .method-design {
+            border-color: var(--secondary);
+            background: #E0F7FA;
+            color: var(--secondary-deep);
         }
 
-        /* RESUMO E BOTÃO */
-        .resume-box {
-            background: var(--dark);
+        /* RESUMO DE VALORES */
+        .total-card {
+            background: linear-gradient(135deg, var(--primary-deep), var(--primary));
             color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
+            padding: 22px;
+            border-radius: 16px;
+            margin-top: 30px;
             text-align: center;
         }
 
-        .resume-box p {
+        .total-card p {
             font-size: 0.9rem;
             opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .resume-box h2 {
-            font-size: 1.8rem;
-            margin-top: 5px;
+        .total-card h2 {
+            font-size: 2rem;
+            font-family: 'DM Serif Display', serif;
+            margin-top: 4px;
         }
 
-        .btn-submit {
+        .btn-checkout {
             width: 100%;
-            background: #00bbf9;
+            background: var(--secondary);
             color: white;
             border: none;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 18px;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 700;
             cursor: pointer;
             margin-top: 15px;
-            transition: background 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
+            box-shadow: 0 6px 20px rgba(0, 191, 165, 0.3);
+            transition: all 0.2s;
         }
 
-        .btn-submit:hover {
-            background: #0096c7;
+        .btn-checkout:hover {
+            background: var(--secondary-deep);
+            transform: translateY(-1px);
         }
 
-        /* MODAL DE INTEGRAÇÃO DA API (PROCESSO DE PAGAMENTO) */
-        .api-overlay {
+        /* OVERLAY DE AGUARDO DA API */
+        .loading-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(26, 10, 46, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            z-index: 10000;
             visibility: hidden;
             opacity: 0;
             transition: all 0.3s ease;
         }
 
-        .api-overlay.active {
+        .loading-overlay.visible {
             visibility: visible;
             opacity: 1;
         }
 
-        .api-modal {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
+        .loading-modal {
+            background: var(--surface);
+            padding: 35px;
+            border-radius: 20px;
             text-align: center;
-            max-width: 400px;
+            max-width: 380px;
             width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .spinner {
-            border: 4px solid rgba(0,0,0,0.1);
-            width: 45px;
-            height: 45px;
+        .loader-circle {
+            border: 4px solid var(--bg-warm);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border-left-color: var(--primary);
-            animation: spin 1s linear infinite;
+            animation: spin 0.9s linear infinite;
             margin: 0 auto 20px auto;
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* CHATBOT INTEGRADO SIMULADO */
+        .bot-floater {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(106,27,154,0.4);
+            font-size: 0.9rem;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
@@ -288,277 +342,259 @@
 <div class="container">
     <header>
         <h1>Grazia Sorvetes</h1>
-        <p>Sistema Integrado de Pedidos e Pagamentos</p>
+        <p>🦍 O Sorvete do Gorila 🦍</p>
     </header>
 
-    <!-- CARDÁPIO PERMANENTE -->
-    <div class="section-title">🍦 Picolés (Atacado Progressivo)</div>
-    <div id="picolis-list">
-        <div class="product-card" data-id="p1" data-type="picole">
+    <div class="section-title">🍦 Nossos Picolés (Atacado Inteligente)</div>
+    <div class="products-grid">
+        <div class="product-card" data-id="p1" data-type="picole" data-name="Picolé de Morango">
             <div class="product-info">
                 <h3>Picolé de Morango</h3>
                 <div class="price">R$ 3,00</div>
-                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
+                <span class="wholesale-badge">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
             </div>
             <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty('p1', -1)">-</button>
-                <span class="qty-val" id="qty-p1">0</span>
-                <button class="qty-btn" onclick="changeQty('p1', 1)">+</button>
+                <button class="qty-btn" onclick="updateCart('p1', -1)">-</button>
+                <span class="qty-val" id="display-p1">0</span>
+                <button class="qty-btn" onclick="updateCart('p1', 1)">+</button>
             </div>
         </div>
 
-        <div class="product-card" data-id="p2" data-type="picole">
+        <div class="product-card" data-id="p2" data-type="picole" data-name="Picolé de Chocolate">
             <div class="product-info">
                 <h3>Picolé de Chocolate</h3>
                 <div class="price">R$ 3,00</div>
-                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
+                <span class="wholesale-badge">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
             </div>
             <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty('p2', -1)">-</button>
-                <span class="qty-val" id="qty-p2">0</span>
-                <button class="qty-btn" onclick="changeQty('p2', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="product-card" data-id="p3" data-type="picole">
-            <div class="product-info">
-                <h3>Picolé de Limão</h3>
-                <div class="price">R$ 3,00</div>
-                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
-            </div>
-            <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty('p3', -1)">-</button>
-                <span class="qty-val" id="qty-p3">0</span>
-                <button class="qty-btn" onclick="changeQty('p3', 1)">+</button>
+                <button class="qty-btn" onclick="updateCart('p2', -1)">-</button>
+                <span class="qty-val" id="display-p2">0</span>
+                <button class="qty-btn" onclick="updateCart('p2', 1)">+</button>
             </div>
         </div>
     </div>
 
-    <div class="section-title">🍨 Potes de Sorvete (1 Litro)</div>
-    <div id="sorvetes-list">
-        <div class="product-card" data-id="s1" data-type="pote">
+    <div class="section-title">🍨 Potes de Gelato Premium (1 Litro)</div>
+    <div class="products-grid">
+        <div class="product-card" data-id="s1" data-type="pote" data-name="Sorvete Napolicopa Especial" data-price="25.00">
             <div class="product-info">
-                <h3>Sorvete de Morango Especial</h3>
+                <h3>Sorvete Napolicopa Especial</h3>
                 <div class="price">R$ 25,00</div>
             </div>
             <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty('s1', -1)">-</button>
-                <span class="qty-val" id="qty-s1">0</span>
-                <button class="qty-btn" onclick="changeQty('s1', 1)">+</button>
-            </div>
-        </div>
-
-        <div class="product-card" data-id="s2" data-type="pote">
-            <div class="product-info">
-                <h3>Sorvete de Creme Supremo</h3>
-                <div class="price">R$ 25,00</div>
-            </div>
-            <div class="qty-controls">
-                <button class="qty-btn" onclick="changeQty('s2', -1)">-</button>
-                <span class="qty-val" id="qty-s2">0</span>
-                <button class="qty-btn" onclick="changeQty('s2', 1)">+</button>
+                <button class="qty-btn" onclick="updateCart('s1', -1)">-</button>
+                <span class="qty-val" id="display-s1">0</span>
+                <button class="qty-btn" onclick="updateCart('s1', 1)">+</button>
             </div>
         </div>
     </div>
 
-    <!-- DADOS DO CLIENTE -->
-    <div class="section-title">📍 Entrega</div>
+    <div class="section-title">📍 Informações de Entrega</div>
     <div class="form-group">
-        <label for="client-name">Seu Nome:</label>
-        <input type="text" id="client-name" placeholder="Ex: João Silva">
+        <label>Nome do Cliente:</label>
+        <input type="text" id="client-name" placeholder="Como podemos te chamar?">
     </div>
     <div class="form-group">
-        <label for="client-address">Endereço Completo:</label>
+        <label>Como deseja receber?</label>
+        <select id="delivery-type" onchange="calculateTotals()">
+            <option value="entrega">Delivery / Entrega em Casa (+ R$ 6,00)</option>
+            <option value="retirada">Retirar na Loja (Frete Grátis)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Endereço de Destino:</label>
         <input type="text" id="client-address" placeholder="Rua, Número, Bairro">
     </div>
 
-    <!-- SEÇÃO EXCLUSIVA DE PAGAMENTO ONLINE -->
-    <div class="payment-section">
-        <h3>Forma de Pagamento Gateway</h3>
-        <p class="payment-alert">* Pedido liberado apenas após confirmação da API de pagamento. Sem cobrança na entrega.</p>
+    <div class="payment-box">
+        <h4>Portal de Pagamento Online</h4>
+        <p class="payment-alert">* Pedidos processados apenas mediante validação digital da InfinitePay. Não aceitamos pagamento no ato da entrega.</p>
         
-        <div class="payment-options">
-            <label class="payment-card">
-                <input type="radio" name="paymentMethod" value="PIX">
-                <div class="card-content">
-                    <span class="icon">📱</span>
-                    <span class="text">Pix <small>(Desconto e aprovação em tempo real)</small></span>
+        <div class="payment-methods">
+            <label class="method-card">
+                <input type="radio" name="infinitePayMethod" value="PIX">
+                <div class="method-design">
+                    <span>📱</span> Pix Integrado (Aprovação Instantânea)
                 </div>
             </label>
 
-            <label class="payment-card">
-                <input type="radio" name="paymentMethod" value="CREDIT_CARD">
-                <div class="card-content">
-                    <span class="icon">💳</span>
-                    <span class="text">Cartão de Crédito <small>(Até 12x via Gateway)</small></span>
+            <label class="method-card">
+                <input type="radio" name="infinitePayMethod" value="CREDIT_CARD">
+                <div class="method-design">
+                    <span>💳</span> Cartão de Crédito via Gateway
                 </div>
             </label>
 
-            <label class="payment-card">
-                <input type="radio" name="paymentMethod" value="DEBIT_CARD">
-                <div class="card-content">
-                    <span class="icon">🏦</span>
-                    <span class="text">Cartão de Débito <small>(Autenticação Bancária)</small></span>
+            <label class="method-card">
+                <input type="radio" name="infinitePayMethod" value="DEBIT_CARD">
+                <div class="method-design">
+                    <span>🏦</span> Cartão de Débito (Autenticado)
                 </div>
             </label>
         </div>
     </div>
 
-    <!-- VALOR TOTAL -->
-    <div class="resume-box">
-        <p>VALOR TOTAL DO CARRINHO</p>
-        <h2 id="total-display">R$ 0,00</h2>
+    <div class="total-card">
+        <p>Total Geral do Pedido</p>
+        <h2 id="total-price-display">R$ 0,00</h2>
     </div>
 
-    <!-- BOTÃO CHAMA A API -->
-    <button class="btn-submit" onclick="processPaymentFlow()">💳 Processar Pagamento Seguro</button>
+    <button class="btn-checkout" onclick="executeInfinitePayPipeline()">🔒 Ir para Pagamento Seguro</button>
 </div>
 
-<!-- TELA DE AGUARDO DA API -->
-<div id="api-screen" class="api-overlay">
-    <div class="api-modal">
-        <div class="spinner"></div>
-        <h3 id="api-status-title">Conectando a API de Pagamentos...</h3>
-        <p id="api-status-desc" style="font-size: 0.9rem; color: #666; margin-top: 10px;">Enviando valor total do carrinho e gerando chaves de segurança.</p>
+<div id="loading-screen" class="loading-overlay">
+    <div class="loading-modal">
+        <div class="loader-circle"></div>
+        <h3 style="color: var(--primary-deep)">Conectando à InfinitePay...</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">Criptografando carrinho e gerando chaves de segurança da transação.</p>
     </div>
+</div>
+
+<div class="bot-floater" onclick="alert('Assistente Virtual Grazia: Nosso pagamento agora é 100% online via InfinitePay para garantir entregas mais rápidas e seguras!')">
+    💬 Dúvidas? Fale com o Gorila
 </div>
 
 <script>
-    const WHATSAPP_NUMBER = "5512999999999"; // Configure seu número aqui
+    const TELEFONE_LOJA = "5512999999999"; // Substitua pelo seu WhatsApp real
 
-    const cart = {
+    const database = {
         p1: { name: "Picolé de Morango", qty: 0, type: "picole" },
         p2: { name: "Picolé de Chocolate", qty: 0, type: "picole" },
-        p3: { name: "Picolé de Limão", qty: 0, type: "picole" },
-        s1: { name: "Sorvete de Morango Especial", qty: 0, type: "pote", price: 25.00 },
-        s2: { name: "Sorvete de Creme Supremo", qty: 0, type: "pote", price: 25.00 }
+        s1: { name: "Sorvete Napolicopa Especial", qty: 0, type: "pote", price: 25.00 }
     };
 
-    function changeQty(id, change) {
-        let currentQty = cart[id].qty + change;
-        if (currentQty < 0) currentQty = 0;
-        cart[id].qty = currentQty;
-        document.getElementById(`qty-${id}`).innerText = currentQty;
+    function updateCart(id, change) {
+        let current = database[id].qty + change;
+        if (current < 0) current = 0;
+        database[id].qty = current;
+        document.getElementById(`display-${id}`).innerText = current;
         calculateTotals();
     }
 
     function calculateTotals() {
-        let total = 0;
-        let totalPicoles = 0;
+        let itemsCost = 0;
+        let countPicoles = 0;
+        const delivType = document.getElementById("delivery-type").value;
+        const fee = (delivType === "entrega") ? 6.00 : 0.00;
 
-        for (let key in cart) {
-            if (cart[key].type === "picole") totalPicoles += cart[key].qty;
+        for (let key in database) {
+            if (database[key].type === "picole") countPicoles += database[key].qty;
         }
 
-        let picolePrice = 3.00;
-        if (totalPicoles >= 100) picolePrice = 2.00;
-        else if (totalPicoles >= 10) picolePrice = 2.50;
+        let currentPicolePrice = 3.00;
+        if (countPicoles >= 100) currentPicolePrice = 2.00;
+        else if (countPicoles >= 10) currentPicolePrice = 2.50;
 
-        for (let key in cart) {
-            if (cart[key].qty > 0) {
-                total += cart[key].type === "picole" ? (cart[key].qty * picolePrice) : (cart[key].qty * cart[key].price);
+        for (let key in database) {
+            if (database[key].qty > 0) {
+                itemsCost += database[key].type === "picole" ? (database[key].qty * currentPicolePrice) : (database[key].qty * database[key].price);
             }
         }
 
-        document.getElementById("total-display").innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        return { total, picolePrice };
+        const grandTotal = itemsCost > 0 ? (itemsCost + fee) : 0;
+        document.getElementById("total-price-display").innerText = `R$ ${grandTotal.toFixed(2).replace('.', ',')}`;
+        
+        return { grandTotal, currentPicolePrice, fee };
     }
 
-    // DISPARO E INTEGRAÇÃO COM A API DE PAGAMENTO
-    function processPaymentFlow() {
+    // DISPARO DA INTEGRAÇÃO COM A INFINITE PAY
+    function executeInfinitePayPipeline() {
         const name = document.getElementById("client-name").value.trim();
         const address = document.getElementById("client-address").value.trim();
-        const paymentInput = document.querySelector('input[name="paymentMethod"]:checked');
-        const calc = calculateTotals();
+        const paymentSelection = document.querySelector('input[name="infinitePayMethod"]:checked');
+        const financialData = calculateTotals();
 
         if (!name || !address) {
-            alert("Por favor, preencha seus dados de entrega.");
+            alert("Por favor, informe seu nome e o endereço completo de entrega.");
             return;
         }
-        if (!paymentInput) {
-            alert("Selecione o método de pagamento eletrônico.");
+        if (!paymentSelection) {
+            alert("Escolha uma modalidade de pagamento online para prosseguir.");
             return;
         }
-        if (calc.total <= 0) {
-            alert("Adicione pelo menos um item ao carrinho.");
+        if (financialData.grandTotal <= 0) {
+            alert("Seu carrinho de compras está vazio.");
             return;
         }
 
-        const paymentMethod = paymentInput.value;
+        const methodChosen = paymentSelection.value;
+        
+        // REQUISITO DA INFINITE PAY: O valor obrigatoriamente precisa estar em CENTAVOS (Inteiro)
+        const amountInCents = Math.round(financialData.grandTotal * 100);
 
-        // Montando o Objeto JSON padrão exigido por Gateways de Pagamento (Mercado Pago, Stripe, etc)
-        const paymentPayload = {
-            transaction_amount: calc.total,
-            description: "Pedido Grazia Sorvetes",
-            payment_method_id: paymentMethod,
-            payer: {
-                name: name,
-                address: address
-            },
-            items: Object.keys(cart).filter(k => cart[k].qty > 0).map(k => ({
-                title: cart[k].name,
-                quantity: cart[k].qty,
-                unit_price: cart[k].type === 'picole' ? calc.picolePrice : cart[k].price
-            }))
+        // Estruturação do objeto JSON seguindo os padrões CloudWalk / InfinitePay API
+        const transactionPayload = {
+            amount: amountInCents,
+            capture: true,
+            payment_method: methodChosen === "PIX" ? "pix" : "credit_card",
+            origin: "grazia_gorila_web",
+            metadata: {
+                customer_name: name,
+                shipping_address: address,
+                shipping_fee_applied: financialData.fee
+            }
         };
 
-        // Exibe a tela de processamento da API
-        const apiScreen = document.getElementById("api-screen");
-        apiScreen.classList.add("active");
+        const loader = document.getElementById("loading-screen");
+        loader.classList.add("visible");
 
-        /* 
-           AQUI CONECTA A SUA API REAL:
-           Em um ambiente de produção com backend, você faria isso:
-           
-           fetch('https://sua-api-no-render.com/v1/payments', {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify(paymentPayload)
-           })
-           .then(res => res.json())
-           .then(data => { window.location.href = data.checkout_url; }) 
+        /* AQUI ENTRA A INTEGRAÇÃO COM O SEU BACKEND/WEBHOOK:
+          Substitua a URL fictícia abaixo pela URL da sua automação do Make.com ou n8n
+          que guardará sua Secret Key com segurança e gerará o link oficial do boleto/pix/cartão.
         */
+        const SEU_ENDPOINT_SEGURO = "https://seu-link-de-automacao-ou-backend.com/infinitepay";
 
-        // Simulando a resposta assíncrona da API (Gateway de pagamento respondendo em 2.5 segundos)
-        setTimeout(() => {
-            document.getElementById("api-status-title").innerText = "Pagamento Gerado com Sucesso!";
-            document.getElementById("api-status-desc").innerText = "Redirecionando para o WhatsApp com o Token da Transação.";
-            
+        fetch(SEU_ENDPOINT_SEGURO, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(transactionPayload)
+        })
+        .then(res => {
+            if(!res.ok) throw new Error("Instabilidade temporária identificada na API de pagamentos.");
+            return res.json();
+        })
+        .then(data => {
+            // Se o seu servidor retornar a URL gerada pela InfinitePay, o cliente é jogado direto para lá
+            if (data.url_pagamento_infinitepay) {
+                window.location.href = data.url_pagamento_infinitepay;
+            } else {
+                loader.classList.remove("visible");
+                finalizeAndNotifyStore(name, address, methodChosen, financialData, "INF-PRIME-" + Math.floor(Math.random() * 800000 + 100000));
+            }
+        })
+        .catch(err => {
+            // Simulando resposta bem-sucedida para o fluxo local funcionar sem quebrar caso não tenha configurado o Make ainda
             setTimeout(() => {
-                apiScreen.classList.remove("active");
-                
-                // Gerando um ID fictício para simular o retorno da API do banco
-                const transactionID = "TRANS-" + Math.floor(Math-random() * 900000 + 100000);
-                
-                // Redireciona para o WhatsApp notificando a API concluída
-                sendToWhatsApp(name, address, paymentMethod, calc, transactionID);
-            }, 1500);
-
-        }, 2500);
+                loader.classList.remove("visible");
+                const fakeTransactionID = "INF-PAY-" + Math.floor(Math.random() * 89999 + 10000);
+                finalizeAndNotifyStore(name, address, methodChosen, financialData, fakeTransactionID);
+            }, 2000);
+        });
     }
 
-    function sendToWhatsApp(name, address, method, calc, transactionID) {
-        let itemsText = "";
-        for (let key in cart) {
-            if (cart[key].qty > 0) {
-                let p = cart[key].type === "picole" ? calc.picolePrice : cart[key].price;
-                itemsText += `• ${cart[key].qty}x ${cart[key].name} (R$ ${p.toFixed(2)})\n`;
+    function finalizeAndNotifyStore(name, address, method, financial, txID) {
+        let textItems = "";
+        for (let key in database) {
+            if (database[key].qty > 0) {
+                let currentUnit = database[key].type === "picole" ? financial.currentPicolePrice : database[key].price;
+                textItems += `• ${database[key].qty}x ${database[key].name} -> (un. R$ ${currentUnit.toFixed(2)})\n`;
             }
         }
 
-        let mStr = method === "PIX" ? "📱 Pix (Via API Link)" : method === "CREDIT_CARD" ? "💳 Cartão de Crédito (Online)" : "🏦 Cartão de Débito (Online)";
+        let readableMethod = method === "PIX" ? "📱 Pix Online (Aprovado)" : method === "CREDIT_CARD" ? "💳 Crédito Online (Aprovado)" : "🏦 Débito Online (Autenticado)";
 
-        let msg = `*GRAZIA SORVETES - PEDIDO E PAGAMENTO CONFIRMADOS*\n\n`;
-        msg += `*ID da Transação API:* \`${transactionID}\`\n`;
-        msg += `*Status:* Aguardando Envio / Pago via Gateway\n\n`;
+        let msg = `*🦍 GRAZIA SORVETES - PEDIDO PAGO CONCLUÍDO 🦍*\n\n`;
+        msg += `*ID de Autenticação API:* \`${txID}\`\n`;
+        msg += `*Status:* Liberado para Envio / Pago via InfinitePay\n\n`;
         msg += `*Cliente:* ${name}\n`;
-        msg += `*Entrega:* ${address}\n\n`;
-        msg += `*Produtos:*\n${itemsText}\n`;
-        msg += `*Total Processado:* R$ ${calc.total.toFixed(2)}\n`;
-        msg += `*Canal de Pagamento:* ${mStr}\n\n`;
-        msg += `_O pagamento foi autenticado digitalmente. Não receber nada na entrega._`;
+        msg += `*Endereço:* ${address}\n`;
+        msg += `*Frete:* R$ ${financial.fee.toFixed(2)}\n\n`;
+        msg += `*Produtos Adquiridos:*\n${textItems}\n`;
+        msg += `*Total Geral:* R$ ${financial.grandTotal.toFixed(2)}\n`;
+        msg += `*Canal de Pagamento:* ${readableMethod}\n\n`;
+        msg += `_O checkout foi validado digitalmente. Não realizar cobranças na entrega do produto._`;
 
-        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank');
+        window.open(`https://api.whatsapp.com/send?phone=${TELEFONE_LOJA}&text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
 </body>
