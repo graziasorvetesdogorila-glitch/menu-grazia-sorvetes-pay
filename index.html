@@ -1318,8 +1318,7 @@ async function initiateInfinyPayCheckout(orderData) {
         if (statusEl) statusEl.textContent = 'Iniciando pagamento seguro...';
         
         // Substitua pela URL do seu backend no Render
-        const backendUrl = 'https://seu-backend-grazia.onrender.com/pagar';
-
+        const backendUrl = 'https://menu-grazia-sorvetes-pay.onrender.com/pagar'
         const response = await fetch(backendUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
