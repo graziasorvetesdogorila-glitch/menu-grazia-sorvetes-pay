@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grazia Sorvetes - Cardápio & Pagamento Integrado</title>
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --primary-light: #fff0f3;
+            --primary-hover: #ff758f;
+            --dark: #2b2d42;
+            --grey: #f8f9fa;
+            --border: #e0e0e0;
+            --text: #4a4a4a;
+            --success: #2b9348;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 5px;
+        }
+
+        /* CARDÁPIO VISUAL */
+        .product-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            background: var(--grey);
+        }
+
+        .product-info h3 {
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .product-info .price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .wholesale-info {
+            font-size: 0.75rem;
+            color: var(--success);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .qty-val {
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* FORMULÁRIO */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        /* OPÇÕES DE PAGAMENTO */
+        .payment-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--grey);
+            border-radius: 12px;
+            border: 1px dashed var(--border);
+        }
+
+        .payment-alert {
+            color: #e63946;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .payment-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .card-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #ffffff;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .payment-card input[type="radio"]:checked + .card-content {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        /* RESUMO E BOTÃO */
+        .resume-box {
+            background: var(--dark);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .resume-box p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .resume-box h2 {
+            font-size: 1.8rem;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #00bbf9;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #0096c7;
+        }
+
+        /* MODAL DE INTEGRAÇÃO DA API (PROCESSO DE PAGAMENTO) */
+        .api-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .api-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .api-modal {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.1);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border-left-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Grazia Sorvetes</h1>
+        <p>Sistema Integrado de Pedidos e Pagamentos</p>
+    </header>
+
+    <!-- CARDÁPIO PERMANENTE -->
+    <div class="section-title">🍦 Picolés (Atacado Progressivo)</div>
+    <div id="picolis-list">
+        <div class="product-card" data-id="p1" data-type="picole">
+            <div class="product-info">
+                <h3>Picolé de Morango</h3>
+                <div class="price">R$ 3,00</div>
+                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('p1', -1)">-</button>
+                <span class="qty-val" id="qty-p1">0</span>
+                <button class="qty-btn" onclick="changeQty('p1', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-id="p2" data-type="picole">
+            <div class="product-info">
+                <h3>Picolé de Chocolate</h3>
+                <div class="price">R$ 3,00</div>
+                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('p2', -1)">-</button>
+                <span class="qty-val" id="qty-p2">0</span>
+                <button class="qty-btn" onclick="changeQty('p2', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-id="p3" data-type="picole">
+            <div class="product-info">
+                <h3>Picolé de Limão</h3>
+                <div class="price">R$ 3,00</div>
+                <span class="wholesale-info">10+ un: R$ 2,50 | 100+ un: R$ 2,00</span>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('p3', -1)">-</button>
+                <span class="qty-val" id="qty-p3">0</span>
+                <button class="qty-btn" onclick="changeQty('p3', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">🍨 Potes de Sorvete (1 Litro)</div>
+    <div id="sorvetes-list">
+        <div class="product-card" data-id="s1" data-type="pote">
+            <div class="product-info">
+                <h3>Sorvete de Morango Especial</h3>
+                <div class="price">R$ 25,00</div>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('s1', -1)">-</button>
+                <span class="qty-val" id="qty-s1">0</span>
+                <button class="qty-btn" onclick="changeQty('s1', 1)">+</button>
+            </div>
+        </div>
+
+        <div class="product-card" data-id="s2" data-type="pote">
+            <div class="product-info">
+                <h3>Sorvete de Creme Supremo</h3>
+                <div class="price">R$ 25,00</div>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty('s2', -1)">-</button>
+                <span class="qty-val" id="qty-s2">0</span>
+                <button class="qty-btn" onclick="changeQty('s2', 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DADOS DO CLIENTE -->
+    <div class="section-title">📍 Entrega</div>
+    <div class="form-group">
+        <label for="client-name">Seu Nome:</label>
+        <input type="text" id="client-name" placeholder="Ex: João Silva">
+    </div>
+    <div class="form-group">
+        <label for="client-address">Endereço Completo:</label>
+        <input type="text" id="client-address" placeholder="Rua, Número, Bairro">
+    </div>
+
+    <!-- SEÇÃO EXCLUSIVA DE PAGAMENTO ONLINE -->
+    <div class="payment-section">
+        <h3>Forma de Pagamento Gateway</h3>
+        <p class="payment-alert">* Pedido liberado apenas após confirmação da API de pagamento. Sem cobrança na entrega.</p>
+        
+        <div class="payment-options">
+            <label class="payment-card">
+                <input type="radio" name="paymentMethod" value="PIX">
+                <div class="card-content">
+                    <span class="icon">📱</span>
+                    <span class="text">Pix <small>(Desconto e aprovação em tempo real)</small></span>
+                </div>
+            </label>
+
+            <label class="payment-card">
+                <input type="radio" name="paymentMethod" value="CREDIT_CARD">
+                <div class="card-content">
+                    <span class="icon">💳</span>
+                    <span class="text">Cartão de Crédito <small>(Até 12x via Gateway)</small></span>
+                </div>
+            </label>
+
+            <label class="payment-card">
+                <input type="radio" name="paymentMethod" value="DEBIT_CARD">
+                <div class="card-content">
+                    <span class="icon">🏦</span>
+                    <span class="text">Cartão de Débito <small>(Autenticação Bancária)</small></span>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <!-- VALOR TOTAL -->
+    <div class="resume-box">
+        <p>VALOR TOTAL DO CARRINHO</p>
+        <h2 id="total-display">R$ 0,00</h2>
+    </div>
+
+    <!-- BOTÃO CHAMA A API -->
+    <button class="btn-submit" onclick="processPaymentFlow()">💳 Processar Pagamento Seguro</button>
+</div>
+
+<!-- TELA DE AGUARDO DA API -->
+<div id="api-screen" class="api-overlay">
+    <div class="api-modal">
+        <div class="spinner"></div>
+        <h3 id="api-status-title">Conectando a API de Pagamentos...</h3>
+        <p id="api-status-desc" style="font-size: 0.9rem; color: #666; margin-top: 10px;">Enviando valor total do carrinho e gerando chaves de segurança.</p>
+    </div>
+</div>
+
+<script>
+    const WHATSAPP_NUMBER = "5512999999999"; // Configure seu número aqui
+
+    const cart = {
+        p1: { name: "Picolé de Morango", qty: 0, type: "picole" },
+        p2: { name: "Picolé de Chocolate", qty: 0, type: "picole" },
+        p3: { name: "Picolé de Limão", qty: 0, type: "picole" },
+        s1: { name: "Sorvete de Morango Especial", qty: 0, type: "pote", price: 25.00 },
+        s2: { name: "Sorvete de Creme Supremo", qty: 0, type: "pote", price: 25.00 }
+    };
+
+    function changeQty(id, change) {
+        let currentQty = cart[id].qty + change;
+        if (currentQty < 0) currentQty = 0;
+        cart[id].qty = currentQty;
+        document.getElementById(`qty-${id}`).innerText = currentQty;
+        calculateTotals();
+    }
+
+    function calculateTotals() {
+        let total = 0;
+        let totalPicoles = 0;
+
+        for (let key in cart) {
+            if (cart[key].type === "picole") totalPicoles += cart[key].qty;
+        }
+
+        let picolePrice = 3.00;
+        if (totalPicoles >= 100) picolePrice = 2.00;
+        else if (totalPicoles >= 10) picolePrice = 2.50;
+
+        for (let key in cart) {
+            if (cart[key].qty > 0) {
+                total += cart[key].type === "picole" ? (cart[key].qty * picolePrice) : (cart[key].qty * cart[key].price);
+            }
+        }
+
+        document.getElementById("total-display").innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        return { total, picolePrice };
+    }
+
+    // DISPARO E INTEGRAÇÃO COM A API DE PAGAMENTO
+    function processPaymentFlow() {
+        const name = document.getElementById("client-name").value.trim();
+        const address = document.getElementById("client-address").value.trim();
+        const paymentInput = document.querySelector('input[name="paymentMethod"]:checked');
+        const calc = calculateTotals();
+
+        if (!name || !address) {
+            alert("Por favor, preencha seus dados de entrega.");
+            return;
+        }
+        if (!paymentInput) {
+            alert("Selecione o método de pagamento eletrônico.");
+            return;
+        }
+        if (calc.total <= 0) {
+            alert("Adicione pelo menos um item ao carrinho.");
+            return;
+        }
+
+        const paymentMethod = paymentInput.value;
+
+        // Montando o Objeto JSON padrão exigido por Gateways de Pagamento (Mercado Pago, Stripe, etc)
+        const paymentPayload = {
+            transaction_amount: calc.total,
+            description: "Pedido Grazia Sorvetes",
+            payment_method_id: paymentMethod,
+            payer: {
+                name: name,
+                address: address
+            },
+            items: Object.keys(cart).filter(k => cart[k].qty > 0).map(k => ({
+                title: cart[k].name,
+                quantity: cart[k].qty,
+                unit_price: cart[k].type === 'picole' ? calc.picolePrice : cart[k].price
+            }))
+        };
+
+        // Exibe a tela de processamento da API
+        const apiScreen = document.getElementById("api-screen");
+        apiScreen.classList.add("active");
+
+        /* 
+           AQUI CONECTA A SUA API REAL:
+           Em um ambiente de produção com backend, você faria isso:
+           
+           fetch('https://sua-api-no-render.com/v1/payments', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify(paymentPayload)
+           })
+           .then(res => res.json())
+           .then(data => { window.location.href = data.checkout_url; }) 
+        */
+
+        // Simulando a resposta assíncrona da API (Gateway de pagamento respondendo em 2.5 segundos)
+        setTimeout(() => {
+            document.getElementById("api-status-title").innerText = "Pagamento Gerado com Sucesso!";
+            document.getElementById("api-status-desc").innerText = "Redirecionando para o WhatsApp com o Token da Transação.";
+            
+            setTimeout(() => {
+                apiScreen.classList.remove("active");
+                
+                // Gerando um ID fictício para simular o retorno da API do banco
+                const transactionID = "TRANS-" + Math.floor(Math-random() * 900000 + 100000);
+                
+                // Redireciona para o WhatsApp notificando a API concluída
+                sendToWhatsApp(name, address, paymentMethod, calc, transactionID);
+            }, 1500);
+
+        }, 2500);
+    }
+
+    function sendToWhatsApp(name, address, method, calc, transactionID) {
+        let itemsText = "";
+        for (let key in cart) {
+            if (cart[key].qty > 0) {
+                let p = cart[key].type === "picole" ? calc.picolePrice : cart[key].price;
+                itemsText += `• ${cart[key].qty}x ${cart[key].name} (R$ ${p.toFixed(2)})\n`;
+            }
+        }
+
+        let mStr = method === "PIX" ? "📱 Pix (Via API Link)" : method === "CREDIT_CARD" ? "💳 Cartão de Crédito (Online)" : "🏦 Cartão de Débito (Online)";
+
+        let msg = `*GRAZIA SORVETES - PEDIDO E PAGAMENTO CONFIRMADOS*\n\n`;
+        msg += `*ID da Transação API:* \`${transactionID}\`\n`;
+        msg += `*Status:* Aguardando Envio / Pago via Gateway\n\n`;
+        msg += `*Cliente:* ${name}\n`;
+        msg += `*Entrega:* ${address}\n\n`;
+        msg += `*Produtos:*\n${itemsText}\n`;
+        msg += `*Total Processado:* R$ ${calc.total.toFixed(2)}\n`;
+        msg += `*Canal de Pagamento:* ${mStr}\n\n`;
+        msg += `_O pagamento foi autenticado digitalmente. Não receber nada na entrega._`;
+
+        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`, '_blank');
+    }
+</script>
+</body>
+</html>
