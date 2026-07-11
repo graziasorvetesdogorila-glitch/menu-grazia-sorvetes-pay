@@ -1309,34 +1309,45 @@
             alert("Chave Pix copiada: " + copyText.value);
         }
 
-        async function initiateInfinyPayCheckout(orderData) {
-            const overlay = document.getElementById('infiny-overlay');
-            const statusEl = document.getElementById('infiny-status');
-            overlay.classList.add('show');
-            try {
-                statusEl.textContent = 'Criando ordem de pagamento na InfinyPay...';
-                await new Promise(resolve => setTimeout(resolve, 1200));
-                statusEl.textContent = 'Conectando ao gateway de pagamento...';
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                const message = buildWhatsAppMessage(orderData);
-                statusEl.textContent = 'Pedido confirmado! Abrindo WhatsApp...';
-                await new Promise(resolve => setTimeout(resolve, 800));
-                overlay.classList.remove('show');
-                window.open(`https://wa.me/5512991618035?text=${encodeURIComponent(message)}`, '_blank');
-                cart = [];
-                saveCart();
-                closeCart();
-                alert('Pedido enviado! Envie o comprovante de pagamento via WhatsApp.');
-            } catch (error) {
-                overlay.classList.remove('show');
-                const message = buildWhatsAppMessage(orderData);
-                window.open(`https://wa.me/5512991618035?text=${encodeURIComponent(message)}`, '_blank');
-                cart = [];
-                saveCart();
-                closeCart();
-            }
-        }
+async function initiateInfinyPayCheckout(orderData) {
+    const overlay = document.getElementById('infiny-overlay');
+    const statusEl = document.getElementById('infiny-status');
+    if (overlay) overlay.classList.add('show');
 
+    try {
+        if (statusEl) statusEl.textContent = 'Iniciando pagamento seguro...';
+        
+        // Substitua pela URL do seu backend no Render
+        const backendUrl = 'https://seu-backend-grazia.onrender.com/pagar';
+
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+        });
+
+        if (!response.ok) throw new Error('Erro no servidor');
+        const data = await response.json();
+
+        if (data.checkoutUrl) {
+            window.location.href = data.checkoutUrl;
+        } else {
+            throw new Error('Link não gerado');
+        }
+    } catch (error) {
+        console.error(error);
+        if (statusEl) statusEl.textContent = 'Indo para o WhatsApp...';
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (overlay) overlay.classList.remove('show');
+        
+        const message = buildWhatsAppMessage(orderData);
+        window.open(`https://wa.me/5512991618035?text=${encodeURIComponent(message)}`, '_blank');
+        cart = []; 
+        saveCart(); 
+        closeCart();
+    }
+}
+      
         function buildWhatsAppMessage(orderData) {
             let msg = `*NOVO PEDIDO - GRAZIA SORVETES*\n\n`;
             msg += `*Cliente:* ${orderData.clientName}\n`;
