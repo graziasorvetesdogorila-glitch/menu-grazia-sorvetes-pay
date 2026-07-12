@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1020,57 +1019,49 @@
             <button class="category-btn" onclick="filterCategory('outros')">Especiais</button>
         </div>
 
-        <!-- PICOLES -->
         <div class="product-section" data-cat="picole">
             <h2 class="section-title">PICOLES</h2>
             <div class="pricing-info">
                 <strong>Preco por atacado:</strong><br>
-                Unidade: R$ 2,20 &nbsp;|&nbsp; 10 ou mais: R$ 1,80 cada &nbsp;|&nbsp; 100 ou mais: R$ 1,60 cada
+                Unidade: R$ 2,20  |  10 ou mais: R$ 1,80 cada  |  100 ou mais: R$ 1,60 cada
             </div>
             <div class="grid" id="grid-picoles"></div>
         </div>
 
-        <!-- PALETAS -->
         <div class="product-section" data-cat="paleta">
             <h2 class="section-title">PALETAS DO GORILA</h2>
             <div class="pricing-info">Valor unitario: <strong>R$ 6,30 cada</strong></div>
             <div class="grid" id="grid-paletas"></div>
         </div>
 
-        <!-- POTES 300 ML -->
         <div class="product-section" data-cat="pote300">
             <h2 class="section-title">SORVETE DE POTE 300 ML</h2>
             <div class="pricing-info">Valor unitario: <strong>R$ 10,00 cada</strong></div>
             <div class="grid" id="grid-potes300"></div>
         </div>
 
-        <!-- POTES 1 LITRO -->
         <div class="product-section" data-cat="pote1L">
             <h2 class="section-title">SORVETE EM POTE - 1 LITRO</h2>
             <div class="pricing-info">Valor unitario: <strong>R$ 19,00 cada</strong></div>
             <div class="grid" id="grid-potes1L"></div>
         </div>
 
-        <!-- POTES 1.800 ML -->
         <div class="product-section" data-cat="pote1800">
             <h2 class="section-title">SORVETE EM POTE - 1.800 ML</h2>
             <div class="pricing-info">Valor unitario: <strong>R$ 29,00 cada</strong></div>
             <div class="grid" id="grid-potes1800"></div>
         </div>
 
-        <!-- COPOS DE ACAI -->
         <div class="product-section" data-cat="copo-acai">
             <h2 class="section-title">COPOS DE ACAI</h2>
             <div class="grid" id="grid-copos-acai"></div>
         </div>
 
-        <!-- ACAI EM LITRO -->
         <div class="product-section" data-cat="acai">
             <h2 class="section-title">ACAI EM LITRO</h2>
             <div class="grid" id="grid-acai"></div>
         </div>
 
-        <!-- ACAI NA GARRAFA -->
         <div class="product-section" data-cat="garrafa-acai">
             <h2 class="section-title">ACAI NA GARRAFA (Escolha ate 2 adicionais)</h2>
             <div class="pricing-info">
@@ -1079,7 +1070,6 @@
             <div class="grid" id="grid-garrafa-acai"></div>
         </div>
 
-        <!-- MILK SHAKE -->
         <div class="product-section" data-cat="milkshake">
             <h2 class="section-title">MILK SHAKE DE ACAI (Escolha ate 2 adicionais)</h2>
             <div class="pricing-info">
@@ -1088,13 +1078,11 @@
             <div class="grid" id="grid-milkshake"></div>
         </div>
 
-        <!-- EMBALAGENS -->
         <div class="product-section" data-cat="embalagens">
             <h2 class="section-title">EMBALAGENS & COBERTURAS</h2>
             <div class="grid" id="grid-embalagens"></div>
         </div>
 
-        <!-- ESPECIAIS -->
         <div class="product-section" data-cat="outros">
             <h2 class="section-title">ESPECIAIS</h2>
             <div class="grid" id="grid-outros"></div>
@@ -1113,12 +1101,11 @@
         <span id="cart-summary">0 itens - R$ 0,00</span>
     </div>
 
-    <!-- MODAL CARRINHO -->
     <div class="modal" id="cart-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Seu Pedido</h3>
-                <button class="close-btn" onclick="closeCart()">&times;</button>
+                <button class="close-btn" onclick="closeCart()">×</button>
             </div>
             <div id="cart-items-container"></div>
 
@@ -1127,9 +1114,8 @@
             </div>
             <div id="cart-total-price">Total: R$ 0,00</div>
 
-            <!-- DADOS DE ENTREGA -->
             <h3 style="margin: 20px 0 14px; border-top: 1px solid var(--border); padding-top: 18px; font-family: 'DM Serif Display', serif; font-size: 1.2rem;">Dados de Entrega</h3>
-            <form id="checkout-form" onsubmit="sendOrder(event)">
+            <form id="checkout-form" onsubmit="finalizarCompra(event)">
                 <div class="form-group">
                     <label>Seu Nome *</label>
                     <input type="text" id="client-name" required placeholder="Ex: Joao Silva">
@@ -1155,7 +1141,6 @@
                     </div>
                 </div>
 
-                <!-- FORMA DE PAGAMENTO -->
                 <h3 style="margin: 12px 0 8px; font-family: 'DM Serif Display', serif; font-size: 1.15rem;">Forma de Pagamento *</h3>
                 <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px;">Selecione como deseja pagar. Nao aceitamos pagamento na entrega.</p>
 
@@ -1191,7 +1176,6 @@
                     </label>
                 </div>
 
-                <!-- PIX COPIA E COLA -->
                 <div id="pix-section" class="pix-container">
                     <strong>Pagamento via Pix</strong>
                     <p>Copie a chave Pix abaixo e pague no app do seu banco:</p>
@@ -1201,7 +1185,6 @@
                     </div>
                 </div>
 
-                <!-- CARTAO VIA INFINYPAY -->
                 <div id="card-section" style="display: none;">
                     <div class="delivery-alert">
                         <strong>Pagamento Online via InfinyPay:</strong> Ao confirmar, voce sera direcionado ao checkout seguro da <strong>InfinyPay</strong> para inserir os dados do cartao. Pagamento processado de forma segura e criptografada.
@@ -1219,7 +1202,6 @@
         </div>
     </div>
 
-    <!-- INFINYPAY OVERLAY -->
     <div class="infiny-overlay" id="infiny-overlay">
         <div class="infiny-box">
             <div class="infiny-spinner"></div>
@@ -1228,7 +1210,6 @@
         </div>
     </div>
 
-    <!-- WHATSAPP CHATBOT -->
     <div class="wa-bot-wrapper" id="wa-bot-wrapper">
         <div class="wa-bot-bubble" id="wa-bubble" onclick="toggleWaBot()">Oi! Precisa de ajuda?</div>
         <div class="wa-bot-panel" id="wa-panel">
@@ -1309,44 +1290,6 @@
             alert("Chave Pix copiada: " + copyText.value);
         }
 
-async function initiateInfinyPayCheckout(orderData) {
-    const overlay = document.getElementById('infiny-overlay');
-    const statusEl = document.getElementById('infiny-status');
-    if (overlay) overlay.classList.add('show');
-
-    try {
-        if (statusEl) statusEl.textContent = 'Iniciando pagamento seguro...';
-        
-        // Substitua pela URL do seu backend no Render
-        const backendUrl = 'https://menu-grazia-sorvetes-pay.onrender.com/pagar'
-        const response = await fetch(backendUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(orderData)
-        });
-
-        if (!response.ok) throw new Error('Erro no servidor');
-        const data = await response.json();
-
-        if (data.checkoutUrl) {
-            window.location.href = data.checkoutUrl;
-        } else {
-            throw new Error('Link não gerado');
-        }
-    } catch (error) {
-        console.error(error);
-        if (statusEl) statusEl.textContent = 'Indo para o WhatsApp...';
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        if (overlay) overlay.classList.remove('show');
-        
-        const message = buildWhatsAppMessage(orderData);
-        window.open(`https://wa.me/5512991618035?text=${encodeURIComponent(message)}`, '_blank');
-        cart = []; 
-        saveCart(); 
-        closeCart();
-    }
-}
-      
         function buildWhatsAppMessage(orderData) {
             let msg = `*NOVO PEDIDO - GRAZIA SORVETES*\n\n`;
             msg += `*Cliente:* ${orderData.clientName}\n`;
@@ -1361,8 +1304,10 @@ async function initiateInfinyPayCheckout(orderData) {
             else if (orderData.paymentMethod === 'debito') payLabel = 'Cartao de Débito via InfinyPay';
             else if (orderData.paymentMethod === 'credito') payLabel = 'Cartao de Crédito à Vista 1x via InfinyPay';
             msg += `*Pagamento:* ${payLabel}\n\n*ITENS:*\n`;
+            
+            // ATUALIZADO: Lendo quantity e price conforme mapeado na nova função
             orderData.items.forEach(item => {
-                msg += `${item.qty}x ${item.name} -> R$ ${(item.unitPrice * item.qty).toFixed(2)}\n`;
+                msg += `${item.quantity}x ${item.name} -> R$ ${(item.price * item.quantity).toFixed(2)}\n`;
             });
             msg += `\n*TOTAL:* R$ ${orderData.total.toFixed(2)}`;
             return msg;
@@ -1783,18 +1728,29 @@ async function initiateInfinyPayCheckout(orderData) {
             });
         }
 
-        function sendOrder(e) {
-            e.preventDefault();
+        // ==========================================
+        // NOVA FUNÇÃO SUBSTITUINDO O ANTIGO SENDORDER
+        // ==========================================
+        async function finalizarCompra(e) {
+            e.preventDefault(); // Impede a página de recarregar
+            
             if(cart.length === 0) { alert('Seu carrinho esta vazio!'); return; }
+            
             const name = document.getElementById('client-name').value;
             const delivType = document.getElementById('delivery-type').value;
             const addr = document.getElementById('client-address').value;
             const ref = document.getElementById('client-ref').value;
             const { totalPrice, deliveryFee } = calculateTotals();
+            
+            // Validações básicas de endereço
             if (delivType === 'entrega' && !addr.trim()) { alert('Preencha o endereco para entrega.'); return; }
+            
+            // Salvar no navegador
             localStorage.setItem('grazia_client_name', name);
             localStorage.setItem('grazia_client_address', addr);
             localStorage.setItem('grazia_client_ref', ref);
+            
+            // Formatar os dados para envio
             const orderData = {
                 orderId: 'GZ-' + Date.now(),
                 clientName: name,
@@ -1802,10 +1758,18 @@ async function initiateInfinyPayCheckout(orderData) {
                 address: addr,
                 ref: ref,
                 paymentMethod: selectedPaymentMethod,
-                items: cart.map(item => ({ name: item.name, qty: item.qty, unitPrice: item.unitPrice })),
+                
+                // Mapeia conforme a lógica que você enviou: name, price e quantity
+                items: cart.map(item => ({
+                    name: item.name,
+                    price: item.unitPrice, 
+                    quantity: item.qty
+                })),
                 total: totalPrice + deliveryFee,
                 deliveryFee: deliveryFee
             };
+
+            // Se for Pix, mantém o fluxo normal do WhatsApp
             if (selectedPaymentMethod === 'pix') {
                 copyPix();
                 const message = buildWhatsAppMessage(orderData);
@@ -1813,7 +1777,42 @@ async function initiateInfinyPayCheckout(orderData) {
                 cart = []; saveCart(); closeCart();
                 alert('Chave Pix copiada! Pague no app do banco e envie o comprovante no WhatsApp.');
             } else {
-                initiateInfinyPayCheckout(orderData);
+                // ==========================================
+                // SEU CÓDIGO DA API DO RENDER AQUI (PAGAMENTO)
+                // ==========================================
+                const overlay = document.getElementById('infiny-overlay');
+                const statusEl = document.getElementById('infiny-status');
+                
+                if (overlay) overlay.classList.add('show');
+                if (statusEl) statusEl.textContent = 'Iniciando pagamento seguro...';
+
+                try {
+                    // Tenta conectar com o seu servidor no Render
+                    const response = await fetch('https://menu-grazia-sorvetes-pay.onrender.com/pagar', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(orderData)
+                    });
+
+                    const data = await response.json();
+
+                    // Se o servidor retornar uma URL de pagamento, redireciona o cliente
+                    if (data.checkoutUrl) {
+                        window.location.href = data.checkoutUrl;
+                    } else {
+                        throw new Error('Sem link de pagamento');
+                    }
+                } catch (error) {
+                    // SE DER ERRO (ou se não tiver a API configurada), vai para o WhatsApp
+                    console.log("Indo para o WhatsApp como Plano B");
+                    if (overlay) overlay.classList.remove('show');
+                    
+                    const message = buildWhatsAppMessage(orderData);
+                    const waLink = `https://wa.me/5512991618035?text=${encodeURIComponent(message)}`;
+                    window.open(waLink, '_blank');
+                    
+                    cart = []; saveCart(); closeCart();
+                }
             }
         }
 
