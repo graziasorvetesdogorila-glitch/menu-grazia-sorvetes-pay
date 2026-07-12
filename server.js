@@ -1,22 +1,35 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios'); // Vamos precisar do axios para falar com a API
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Rota de teste para ver se o servidor está online
-app.get('/', (req, res) => {
-    res.send('Servidor Grazia Sorvetes Online!');
-});
-
-// Rota que recebe o pedido do seu site
 app.post('/pagar', async (req, res) => {
-    console.log("Pedido recebido:", req.body);
-    
-    // Por enquanto, retorna um link fixo para teste
-    // Quando tiver a API da InfinityPay, vamos alterar esta parte
-    res.json({ checkoutUrl: "https://checkout.infinypay.com.br/exemplo" });
+    try {
+        const orderData = req.body;
+        
+        // Estrutura que a documentação pede
+        const payload = {
+            handle: "graziela-souza-5h5",
+            items: orderData.items.map(item => ({
+                quantity: item.quantity,
+                price: Math.round(item.price * 100), // Preço em centavos
+                description: item.name
+            }))
+        };
+
+        // Chamada para a API da InfinitePay
+        const response = await axios.post('https://api.infinitepay.io/v1/checkouts', payload);
+        
+        // Retorna o link gerado pelo banco para o seu site
+        res.json({ checkoutUrl: response.data.payment_link });
+        
+    } catch (error) {
+        console.error("Erro ao criar checkout:", error.response?.data || error.message);
+        res.status(500).json({ error: "Erro ao gerar pagamento" });
+    }
 });
 
 const PORT = process.env.PORT || 3000;
